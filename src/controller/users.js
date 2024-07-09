@@ -1,24 +1,19 @@
-const getAllUsers = (req, res) => {
-    const data = [{
-        'id': '1',
-        'nama': 'ridho',
-        'umur': 23,
-        'hobby': [{
-            'hobby1': 'basketball',
-            'hobby2': 'play games',
-        },
-        ],
-    },
-    {
-        'id': '2',
-        'nama': 'phageis',
-        'umur': 23
-    },
-    ];
-    res.json({
-        'status': 200,
-        'data': data,
-    })
+const userModels = require('../models/users')
+
+const getAllUsers = async (req, res) => {
+    try {
+        const [data] = await userModels.getDataDb();
+
+        res.json({
+            'status': 200,
+            'data': data,
+        })
+    } catch (error) {
+        res.status(500).json({
+            message:'Server Error',
+            error: error,
+        })
+    }
 }
 
 const createUsers = (req, res) => {

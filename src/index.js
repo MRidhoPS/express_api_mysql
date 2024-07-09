@@ -1,6 +1,10 @@
 const express = require('express');
 const usersRoute = require('./routes/users.js');
 const middlewareLogs = require('./middleware/logs.js')
+require('dotenv').config();
+
+// SETTING PORT MENGGUNAKAN ENV, JIKA TIDAK TERBACA DEFAULTNYA ADALAH 5000
+const port = process.env.PORT || 5000
 
 const app = express();
 
@@ -12,6 +16,10 @@ app.use(express.json())
 
 app.use('/users', usersRoute)
 
-app.listen(4000, () => {
-    console.log('Server berhasil di running di port 4000')
+app.use('/testdb', (req, res)=>{
+    
+})
+
+app.listen(port, () => {
+    console.log(`Server berhasil di running di port ${port}`)
 });
