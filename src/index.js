@@ -16,9 +16,7 @@ app.use(express.json())
 
 app.use('/users', usersRoute)
 
-app.use('/testdb', (req, res)=>{
-    
-})
+
 
 app.listen(port, () => {
     console.log(`Server berhasil di running di port ${port}`)

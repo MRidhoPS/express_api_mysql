@@ -1,5 +1,12 @@
 const userModels = require('../models/users')
 
+// initial user
+export const initUsers = (req, res)=>{
+    res.status(200).json({
+        'message':'Hello World'
+    })
+}
+
 const getAllUsers = async (req, res) => {
     try {
         const [data] = await userModels.getDataDb();

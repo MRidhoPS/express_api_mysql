@@ -4,6 +4,9 @@ const userController = require('../controller/users')
 
 const router = express.Router();
 
+// inital users
+router.get('/', userController.initUsers);
+
 // read users
 router.get('/getdata', userController.getAllUsers)
 
