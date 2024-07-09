@@ -4,50 +4,79 @@ const getAllUsers = async (req, res) => {
     try {
         const [data] = await userModels.getDataDb();
 
-        res.json({
+        res.status(200).json({
             'status': 200,
             'data': data,
         })
     } catch (error) {
         res.status(500).json({
-            message:'Server Error',
+            message: 'Server Error',
             error: error,
         })
     }
 }
 
-const createUsers = (req, res) => {
-    res.json({
-        'status': 200,
-        'data': [
-            'Create data success',
-            data = req.body
+const createUsers = async (req, res) => {
+    const { body } = req;
 
-        ]
-    })
+    if(!body.name || !body.email || !body.address){
+        return res.status(400).json({
+            message:'Anda mengirimkan data yang salah'
+        })
+    }
+
+    try {
+        await userModels.createNewUser(body);
+        res.status(201).json({
+            'status': 200,
+            'data': [
+                'Create data success',
+                data = req.body
+
+            ]
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: 'Server Error',
+            error: error,
+        })
+    }
 }
 
-const updateUsers = (req, res) => {
-    const {id} = req.params; // this id must be same as routes params, i use 'id' btw
-    console.log('Users id: ', id);
-    res.json({
-        message:'update users',
-        data: {
-            name: 'ridho',
-            email:'yyy@gmail.com'
-        }
-    })
-}
-
-const deleteUsers = (req, res) => {
+const updateUsers = async (req, res) => {
+    const { body } = req;
     const { id } = req.params; // this id must be same as routes params, i use 'id' btw
-    console.log('Users id: ', id);
-    res.json({
-        message: 'delete users',
-        data: {
-            id: req.params,
-        }
-    })
+    try {
+        await userModels.updateUsers(body, id)
+        res.status(201).json({
+            message: 'update users success',
+            data: { id: id, ...body },
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: 'Server Error',
+            error: error,
+        })
+    }
+}
+
+const deleteUsers = async (req, res) => {
+
+    const { id } = req.params; // this id must be same as routes params, i use 'id' btw
+    try {
+        await userModels.deleteUsers(id);
+        res.json({
+            message: 'delete users success',
+            data: {
+                id: id,
+            }
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: 'Server Error',
+            error: error,
+        })
+    }
 }
 
 module.exports = {
