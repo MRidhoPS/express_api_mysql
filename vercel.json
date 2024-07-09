@@ -9,7 +9,7 @@
     "routes": [
         {
             "src": "/(.*)",
-            "destination": "./src/api/routes/users.js"
+            "dest": "./src/api/routes/users.js"
         }
     ],
     "rewrites": [
