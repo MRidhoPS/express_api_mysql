@@ -3,7 +3,7 @@
     "rewrites": [
         {
             "source": "/(.*)",
-            "destination": "./app/api/routes/users.js"
+            "destination": "./index.js"
         }
     ]
 }
